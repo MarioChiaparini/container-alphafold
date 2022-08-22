@@ -1,0 +1,14 @@
+---
+- hosts: node
+  become: yes
+
+  tasks:
+    
+    - name: "ALphaFold2"
+      copy:
+        src: 'pwd'/modulefiles/alphafold/
+        dest: 'pwd'/modulefiles/alphafold/
+        directory_mode: true
+        owner: root
+        mode: 0755
+      tags: modules 
