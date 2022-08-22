@@ -1,0 +1,38 @@
+---
+- name: "login node to compute nodes"
+  become: True
+  copy:
+    src: /etc/hosts
+    dest: /etc/hosts
+
+- name: "Install nfs client"
+  package:
+        name: nfs-utils
+        state: present
+  tags: storage
+
+- name: "Mount storage (home)"
+  mount:
+        src: storage:/volume1/shared_homes
+        path: /mnt/nfs/home
+        fstype: nfs
+        opts: rw,auto,vers=3
+        state: mounted
+  tags: storage
+
+- name: "Mount storage (common-data)"
+  mount:
+        src: storage:/volume1/common_data
+        path: /mnt/nfs/common_data
+        fstype: nfs
+        opts: rw,auto,vers=3
+        state: mounted
+  tags: storage
+
+- name: "Set common-data permission"
+  file:
+        path: /mnt/nfs/common_data
+        state: directory
+        mode: '0755'
+  tags: storage
+

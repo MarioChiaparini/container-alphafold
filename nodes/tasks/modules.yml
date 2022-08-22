@@ -1,0 +1,17 @@
+    - name: "Alphafold"
+      copy:
+        src: /opt/ohpc/pub/modulefiles/alphafold/
+        dest: /opt/ohpc/pub/modulefiles/alphafold/
+        directory_mode: true
+        owner: root
+        mode: 0755
+      tags: modules
+
+    - name: "Alphafold"
+      copy:
+        src: /opt/ohpc/pub/apps/alphafold/
+        dest: /opt/ohpc/pub/apps/alphafold/
+        directory_mode: true
+        owner: root
+        mode: 0755
+      tags: modules
