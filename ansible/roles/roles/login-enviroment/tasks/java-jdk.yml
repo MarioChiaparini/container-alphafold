@@ -1,0 +1,14 @@
+---
+- hosts: login
+  become: yes
+
+  tasks:
+    - name: "install java openjdk 11"
+      yum:
+        name: java-11-openjdk
+        state: present
+    - name: "install java devel 11"
+      yum:
+        name: java-11-openjdk-devel
+        state: present
+
