@@ -1,0 +1,44 @@
+---
+- hosts: compute
+  become: yes
+
+  tasks:
+    - name: "install munge"
+      yum:
+        name: munge
+        state: present
+      tags: slurm
+
+    - name: "install slurm-daemon"
+      yum:
+        name: slurm-slurmd-ohpc
+        state: present
+      tags: slurm
+
+    - name: "copy /etc/slurm/slurm.conf"
+      copy:
+        src: /etc/slurm/slurm.conf
+        dest: /etc/slurm/slurm.conf
+        mode: u=rw,g=r,o=r
+      tags: slurm
+
+    - name: "copy /etc/slurm/slurm.epilog.clean"
+      copy:
+        src: /etc/slurm/slurm.epilog.clean
+        dest: /etc/slurm/slurm.epilog.clean
+        mode: u=rwx,g=rx,o=rx
+      tags: slurm
+
+    - name: "start slurmctld service"
+      service:
+        name: slurmd
+        state: started
+        enabled: yes
+      tags: slurm
+
+    - name: "start munge (must copy munge.key and set permissions before)"
+      service:
+        name: munge
+        state: started
+        enabled: yes
+      tags: slurm

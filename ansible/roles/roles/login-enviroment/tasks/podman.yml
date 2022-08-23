@@ -1,0 +1,9 @@
+---
+
+- hosts: login
+  become: yes 
+ 
+tasks: 
+  - name: "Podman"
+    yum: podman,podman-compose
+    state: present
