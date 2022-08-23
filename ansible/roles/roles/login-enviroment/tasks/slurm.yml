@@ -1,0 +1,32 @@
+---
+- host: login
+  become: yes
+ 
+  tasks: 
+- name: "Instal Munge"
+  yum: 
+    name: munge
+    state: present
+    state: slurm
+
+- name: "Slurm-Server"
+  yum:
+    name: ohpc-slurm-server
+    state: present
+  tags: slurm
+
+- name: "Slurmctld Service"
+  service:
+    name: slurmctld
+    state: started
+    enabled: yes
+  tags: slurm
+ 
+    - name: "start munge"
+      service:
+        name: munge
+        state: started
+        enabled: yes
+      tags: slurm
+
+  
